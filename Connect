@@ -1,0 +1,50 @@
+let token = "2143209794:AAG-Ts15nJH-EUwUP9IQb9TBRqTMLueZWVA";
+let urlTG = "https://api.telegram.org/bot";
+let urlSheets = "https://script.google.com/macros/s/AKfycbzQTjnQqzpKU7IrjPX6ZL_y8jOjHCKB5P2ST3hpNAArGX4mWMMw6JfAHNeJcVRVAQZzPg/exec";
+//Добавить вебхук
+function setWebhook() {
+  var url = urlTG+token + "/setWebhook?url=" + urlSheets;
+  let response = UrlFetchApp.fetch(url);
+  console.log(response.getContentText());
+}
+//Удалить вебхук
+function deleteWebhook(){
+  var url = urlTG+token + "/deleteWebhook?url=" + urlSheets;
+  let response = UrlFetchApp.fetch(url);
+  console.log(response.getContentText());
+}
+
+//Метод Обработки перед получением
+function doGet(e){
+  console.log("doGet");
+  HtmlService.createHtmlOutput("Hello " + JSON.stringify(e));
+}
+//Метод обработки перед отправкой
+function doPost(e) {
+  console.log("doPost");
+  let contents = JSON.parse(e.postData.contents);
+  sendMessage(1037817226, "Обрабатываю...");
+  //text = ParseCommand();
+  sendMessage(contents.message.chat_id, content.message.text);
+}
+//Метод отправки сообщений
+function sendMessage(chat_id, text) {
+  
+  let data = {
+    method: "post",
+    payload: {
+      method: "sendMessage",
+      chat_id: String(chat_id),
+      text: text,
+      parse_mode: "HTML"
+    }
+  };
+  let url = urlTG + token + '/';
+  UrlFetchApp.fetch(url, data);
+}
+//Метод тестирования отправки ботом сообщений
+function send(){
+  let chat_id = "1037817226";
+  let text = "hello ";
+  sendMessage(chat_id, text);
+}
