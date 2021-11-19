@@ -1,0 +1,21 @@
+
+ //Метод определения команды
+ function ParseCommand(text){
+   text = text.trim();
+   text = text.toUpperCase();
+   if(""==text)return "";
+   if(text.charAt(0)=='/'){
+     if(text.includes("START")){
+       text = "Добрый день! Список команд:";
+     }
+     else if (text.includes("HELP")){
+       text = "Список команд:";
+     }
+     else if (text.includes("ERRORFORDATA")){
+       text = text.substring(text.charAt(" "));
+       text = ErrorForData(text);
+     }
+     else text = "Не команда";
+   }
+   return text;
+ }
