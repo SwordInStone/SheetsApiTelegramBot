@@ -1,0 +1,20 @@
+//Метод выгрузки из таблицы необходимых значений
+function ErrorForData(data) {
+  let idSpreadSheet="1aUlHh-BMT069BIcv2qcet3RjnLWLIxsMaFZnFraG7zI";
+   text = SpreadsheetApp.openById(idSpreadSheet).getSheetByName("Лист1").getRange("Лист1!A:E").getValues().filter(filterNotNull);
+  for(i=0;i<text.length;i++){
+    text[i].splice(2,1);
+    text[i]=text[i].join(" | ");
+  }
+  text = text.join('\n').toString();
+  console.log(text);
+  return text;
+}
+//Метод сравнения для фильтрации
+function filterNotNull(value){
+  let result = false;
+  if (value[4]!= 0) {
+    result = true;
+  }
+  return result;
+}
